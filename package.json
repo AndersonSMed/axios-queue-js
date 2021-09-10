@@ -1,0 +1,21 @@
+{
+  "name": "axios-queue-js",
+  "version": "0.0.1",
+  "description": "A superset of axios used to enqueue requests",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:AndersonSMed/axios-queue-js.git",
+  "author": "Anderson Santos de Medeiros",
+  "license": "MIT",
+  "private": false,
+  "files": ["/dist"],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest -c jest.config.js",
+    "test:watch": "jest -c jest.config.js --watch"
+  },
+  "devDependencies": {
+    "jest": "^27.1.1",
+    "typescript": "^4.4.3"
+  }
+}
