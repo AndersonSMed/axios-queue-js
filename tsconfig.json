@@ -4,7 +4,6 @@
     "target": "es6",
     "module": "es2015",
     "declaration": true,
-    "lib": ["dom", "es2015", "es2018.promise"],
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
