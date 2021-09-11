@@ -15,8 +15,16 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts'],
+      },
+    },
+  },
   plugins: ['@typescript-eslint', 'eslint-plugin-jest'],
   rules: {
+    'class-methods-use-this': 0,
     'space-before-function-paren': 0,
     'import/export': 0,
     'import/extensions': 0,

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "target": "es5",
-    "module": "esnext",
+    "target": "es6",
+    "module": "es2015",
     "declaration": true,
     "lib": ["dom", "es2015", "es2018.promise"],
     "outDir": "./dist",
@@ -13,5 +13,5 @@
     "moduleResolution": "node"
   },
   "include": ["./src/**/*.ts"],
-  "exclude": ["./src/**/*test.ts"]
+  "exclude": ["./src/**/*.test.ts"]
 }
