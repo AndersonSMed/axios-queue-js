@@ -1,7 +1,7 @@
 {
   "name": "axios-queue-js",
-  "version": "0.0.1",
-  "description": "A superset of axios used to enqueue requests",
+  "version": "1.0.0-alpha",
+  "description": "A superset of axios that can be used to automatically enqueue requests",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:AndersonSMed/axios-queue-js.git",
@@ -21,6 +21,7 @@
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-typescript": "^7.15.0",
     "@types/jest": "^27.0.1",
+    "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "babel-jest": "^27.1.1",
@@ -35,7 +36,6 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "@types/uuid": "^8.3.1",
     "axios": "^0.21.4",
     "uuid": "^8.3.2"
   }

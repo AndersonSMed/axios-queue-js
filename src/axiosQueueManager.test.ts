@@ -14,7 +14,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 it.each(['get', 'delete', 'post', 'put', 'patch'])(
   'Should handle all calls for method %s',
   async (methodName) => {
-    const axiosQueueManager = new AxiosQueueManager({ chunkSize: 2 });
+    const axiosQueueManager = new AxiosQueueManager({ queueSize: 2 });
     const handler = jest.fn();
 
     mockedAxios[methodName].mockImplementation(() => {
@@ -47,7 +47,7 @@ it.each(['get', 'delete', 'post', 'put', 'patch'])(
 );
 
 it('Should resolve promise successfully', async () => {
-  const axiosQueueManager = new AxiosQueueManager({ chunkSize: 2 });
+  const axiosQueueManager = new AxiosQueueManager({ queueSize: 2 });
 
   mockedAxios.get.mockImplementation(() => {
     return new Promise((resolve) => {
@@ -63,7 +63,7 @@ it('Should resolve promise successfully', async () => {
 });
 
 it('Should reject promise successfully', async () => {
-  const axiosQueueManager = new AxiosQueueManager({ chunkSize: 2 });
+  const axiosQueueManager = new AxiosQueueManager({ queueSize: 2 });
 
   mockedAxios.get.mockImplementation(() => {
     return new Promise((resolve, reject) => {

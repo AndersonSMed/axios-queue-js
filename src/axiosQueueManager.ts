@@ -3,7 +3,7 @@ import { IAxiosConfig, IAxiosQueueManager, IRequestData } from './interfaces';
 import QueueTask from './queueTask';
 
 export interface IAxiosQueueManagerProps {
-  chunkSize?: number;
+  queueSize?: number;
 }
 
 interface IQueuedRequest {
@@ -12,14 +12,14 @@ interface IQueuedRequest {
 }
 
 class AxiosQueueManager implements IAxiosQueueManager {
-  private chunkSize: number;
+  private queueSize: number;
 
   private tasksQueue: QueueTask[];
 
   private requestsQueue: IQueuedRequest[];
 
-  constructor({ chunkSize }: IAxiosQueueManagerProps = {}) {
-    this.chunkSize = chunkSize || 10;
+  constructor({ queueSize }: IAxiosQueueManagerProps = {}) {
+    this.queueSize = queueSize || 10;
     this.requestsQueue = [];
     this.tasksQueue = [];
   }
@@ -46,7 +46,7 @@ class AxiosQueueManager implements IAxiosQueueManager {
   }
 
   private checkQueue() {
-    const emptyTaskSlots = this.chunkSize - this.requestsQueue.length;
+    const emptyTaskSlots = this.queueSize - this.requestsQueue.length;
     if (emptyTaskSlots > 0 && this.tasksQueue.length > 0) {
       const tasks = this.tasksQueue.slice(0, emptyTaskSlots);
       this.enqueueTasksToRequest(tasks);
