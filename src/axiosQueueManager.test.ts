@@ -7,6 +7,9 @@ jest.mock('axios', () => ({
   post: jest.fn(),
   put: jest.fn(),
   patch: jest.fn(),
+  create: () => ({
+    get: jest.fn(() => Promise.resolve()),
+  }),
 }));
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
@@ -77,4 +80,14 @@ it('Should reject promise successfully', async () => {
   await expect(axiosQueueManager.get('https://test.com')).rejects.toEqual(
     'Testing reject handling'
   );
+});
+
+it('Should work with custom client', () => {
+  const client = mockedAxios.create();
+
+  const axiosQueueManager = new AxiosQueueManager({ queueSize: 2, axiosClient: client });
+
+  axiosQueueManager.get('https://test.com');
+
+  expect(client.get).toBeCalled();
 });

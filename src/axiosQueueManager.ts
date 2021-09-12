@@ -1,8 +1,9 @@
-import { AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { IAxiosConfig, IAxiosQueueManager, IRequestData } from './interfaces';
 import QueueTask from './queueTask';
 
 export interface IAxiosQueueManagerProps {
+  client?: AxiosInstance;
   queueSize?: number;
 }
 
@@ -12,13 +13,16 @@ interface IQueuedRequest {
 }
 
 class AxiosQueueManager implements IAxiosQueueManager {
+  private client: AxiosInstance;
+
   private queueSize: number;
 
   private tasksQueue: QueueTask[];
 
   private requestsQueue: IQueuedRequest[];
 
-  constructor({ queueSize }: IAxiosQueueManagerProps = {}) {
+  constructor({ queueSize, client }: IAxiosQueueManagerProps = {}) {
+    this.client = client || axios;
     this.queueSize = queueSize || 10;
     this.requestsQueue = [];
     this.tasksQueue = [];
@@ -27,7 +31,7 @@ class AxiosQueueManager implements IAxiosQueueManager {
   private makeRequests() {
     this.requestsQueue = this.requestsQueue.map((request) => {
       if (!request.wasRequested) {
-        request.task.makeRequest(() => {
+        request.task.makeRequest(this.client, () => {
           this.requestsQueue = this.requestsQueue.filter(
             (previousRequests) => previousRequests.task.data.id !== request.task.data.id
           );

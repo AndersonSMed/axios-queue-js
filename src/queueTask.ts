@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { AxiosInstance } from 'axios';
 import { v4 as uuid } from 'uuid';
 import { IRequestData } from './interfaces';
 
@@ -13,38 +13,38 @@ export default class QueueTask {
     this.requestData = { id: uuid(), url, method, data, config, onResolve, onReject };
   }
 
-  public makeRequest(onFinally: () => void): void {
+  public makeRequest(client: AxiosInstance, onFinally: () => void): void {
     switch (this.requestData.method) {
       case 'get':
-        axios
+        client
           .get(this.requestData.url, this.requestData.config)
           .then(this.requestData.onResolve)
           .catch(this.requestData.onReject)
           .finally(() => onFinally());
         return;
       case 'delete':
-        axios
+        client
           .delete(this.requestData.url, this.requestData.config)
           .then(this.requestData.onResolve)
           .catch(this.requestData.onReject)
           .finally(() => onFinally());
         return;
       case 'post':
-        axios
+        client
           .post(this.requestData.url, this.requestData.data, this.requestData.config)
           .then(this.requestData.onResolve)
           .catch(this.requestData.onReject)
           .finally(() => onFinally());
         return;
       case 'patch':
-        axios
+        client
           .patch(this.requestData.url, this.requestData.data, this.requestData.config)
           .then(this.requestData.onResolve)
           .catch(this.requestData.onReject)
           .finally(() => onFinally());
         return;
       case 'put':
-        axios
+        client
           .put(this.requestData.url, this.requestData.data, this.requestData.config)
           .then(this.requestData.onResolve)
           .catch(this.requestData.onReject)

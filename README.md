@@ -40,6 +40,7 @@ client.get('https://endpoint.test.net').then((response) => {
 
 As showed previously, you can create and configure your own AxiosQueueManager instance, which can receives an object with the following configs.
 
-| Key       | Optional | Default Value | Type   | Description                         |
-| --------- | -------- | ------------- | ------ | ----------------------------------- |
-| queueSize | True     | 10            | Number | Represents the queue's maximum size |
+| Key       | Optional | Default Value | Type          | Description                                               |
+| --------- | -------- | ------------- | ------------- | --------------------------------------------------------- |
+| queueSize | True     | 10            | Number        | Represents the queue's maximum size                       |
+| client    | True     | axios.default | AxiosInstance | Can be set to use a custom axios instance in the requests |
