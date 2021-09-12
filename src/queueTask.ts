@@ -1,24 +1,15 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { v4 as uuid } from 'uuid';
-import { IHttpMethod, IAxiosConfig } from './interfaces';
+import { IRequestData } from './interfaces';
 
-export interface RequestInfo {
-  onResolve: (value: AxiosResponse<any> | PromiseLike<AxiosResponse<any>>) => void;
-  onReject: (reason?: any) => void;
-  url: string;
-  method: IHttpMethod;
-  data?: any;
-  config?: IAxiosConfig;
-}
-
-interface KeyedRequestInfo extends RequestInfo {
+interface KeyedRequestData extends IRequestData {
   id: string;
 }
 
-export default class QueueRequest {
-  private requestData: KeyedRequestInfo;
+export default class QueueTask {
+  private requestData: KeyedRequestData;
 
-  constructor({ url, method, data, config, onResolve, onReject }: RequestInfo) {
+  constructor({ url, method, data, config, onResolve, onReject }: IRequestData) {
     this.requestData = { id: uuid(), url, method, data, config, onResolve, onReject };
   }
 
@@ -64,7 +55,7 @@ export default class QueueRequest {
     }
   }
 
-  public get data(): KeyedRequestInfo {
+  public get data(): KeyedRequestData {
     return this.requestData;
   }
 
@@ -75,7 +66,7 @@ export default class QueueRequest {
     config,
     onResolve,
     onReject,
-  }: RequestInfo): QueueRequest {
-    return new QueueRequest({ url, method, data, config, onResolve, onReject });
+  }: IRequestData): QueueTask {
+    return new QueueTask({ url, method, data, config, onResolve, onReject });
   }
 }

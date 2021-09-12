@@ -1,4 +1,4 @@
-import AxiosQueueManager from './axiosQueueManager';
+import AxiosQueueManager, { IAxiosQueueManagerProps } from './axiosQueueManager';
 
 export default new AxiosQueueManager();
-export { AxiosQueueManager };
+export { AxiosQueueManager, IAxiosQueueManagerProps };

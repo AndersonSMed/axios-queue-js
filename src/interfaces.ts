@@ -4,6 +4,15 @@ export type IAxiosConfig = AxiosRequestConfig | undefined;
 
 export type IHttpMethod = 'get' | 'post' | 'patch' | 'put' | 'delete';
 
+export interface IRequestData {
+  onResolve: (value: AxiosResponse<any> | PromiseLike<AxiosResponse<any>>) => void;
+  onReject: (reason?: any) => void;
+  url: string;
+  method: IHttpMethod;
+  data?: any;
+  config?: IAxiosConfig;
+}
+
 export interface IAxiosQueueManager {
   get: (url: string, config?: IAxiosConfig) => Promise<AxiosResponse<any>>;
   delete: (url: string, config?: IAxiosConfig) => Promise<AxiosResponse<any>>;
