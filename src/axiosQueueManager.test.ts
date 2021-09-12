@@ -85,7 +85,7 @@ it('Should reject promise successfully', async () => {
 it('Should work with custom client', () => {
   const client = mockedAxios.create();
 
-  const axiosQueueManager = new AxiosQueueManager({ queueSize: 2, axiosClient: client });
+  const axiosQueueManager = new AxiosQueueManager({ queueSize: 2, client });
 
   axiosQueueManager.get('https://test.com');
 
