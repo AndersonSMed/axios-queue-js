@@ -1,8 +1,8 @@
 import { AxiosResponse } from 'axios';
-import { IAxiosConfig, IAxiosManager } from './interfaces';
+import { IAxiosConfig, IAxiosQueueManager } from './interfaces';
 import QueueRequest, { RequestInfo } from './queueRequest';
 
-export interface AxiosManagerProps {
+export interface AxiosQueueManagerProps {
   chunkSize: number;
 }
 
@@ -11,14 +11,14 @@ interface RequestQueueItem {
   requested: boolean;
 }
 
-class AxiosManager implements IAxiosManager {
+class AxiosQueueManager implements IAxiosQueueManager {
   private chunkSize: number;
 
   private tasksQueue: QueueRequest[];
 
   private requestQueue: RequestQueueItem[];
 
-  constructor({ chunkSize }: AxiosManagerProps) {
+  constructor({ chunkSize }: AxiosQueueManagerProps) {
     this.chunkSize = chunkSize;
     this.requestQueue = [];
     this.tasksQueue = [];
@@ -39,18 +39,18 @@ class AxiosManager implements IAxiosManager {
     });
   }
 
-  private queueTasks(tasks: QueueRequest[]) {
+  private enqueueTasksToRequest(tasks: QueueRequest[]) {
     this.requestQueue = this.requestQueue.concat(
       tasks.map((task) => ({ taskInfo: task, requested: false }))
     );
   }
 
   private checkQueue() {
-    const emptyRequestSlots = this.chunkSize - this.requestQueue.length;
-    if (emptyRequestSlots > 0 && this.tasksQueue.length > 0) {
-      const requests = this.tasksQueue.slice(0, emptyRequestSlots);
-      this.queueTasks(requests);
-      this.tasksQueue = this.tasksQueue.slice(requests.length);
+    const emptyTaskSlots = this.chunkSize - this.requestQueue.length;
+    if (emptyTaskSlots > 0 && this.tasksQueue.length > 0) {
+      const tasks = this.tasksQueue.slice(0, emptyTaskSlots);
+      this.enqueueTasksToRequest(tasks);
+      this.tasksQueue = this.tasksQueue.slice(tasks.length);
       this.makeRequests();
     }
   }
@@ -91,4 +91,4 @@ class AxiosManager implements IAxiosManager {
   }
 }
 
-export default AxiosManager;
+export default AxiosQueueManager;
