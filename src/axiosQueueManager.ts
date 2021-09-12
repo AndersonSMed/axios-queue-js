@@ -2,7 +2,6 @@ import { AxiosResponse } from 'axios';
 import { IAxiosConfig, IAxiosQueueManager } from './interfaces';
 import QueueRequest, { RequestInfo } from './queueRequest';
 
-export type strategyType = 'no-wait' | 'wait-all';
 export interface AxiosQueueManagerProps {
   chunkSize?: number;
 }
