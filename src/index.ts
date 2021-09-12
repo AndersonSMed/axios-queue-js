@@ -1,4 +1,4 @@
 import AxiosQueueManager from './axiosQueueManager';
 
-export default new AxiosQueueManager({ chunkSize: 10 });
+export default new AxiosQueueManager();
 export { AxiosQueueManager };

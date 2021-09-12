@@ -2,8 +2,9 @@ import { AxiosResponse } from 'axios';
 import { IAxiosConfig, IAxiosQueueManager } from './interfaces';
 import QueueRequest, { RequestInfo } from './queueRequest';
 
+export type strategyType = 'no-wait' | 'wait-all';
 export interface AxiosQueueManagerProps {
-  chunkSize: number;
+  chunkSize?: number;
 }
 
 interface RequestQueueItem {
@@ -18,8 +19,8 @@ class AxiosQueueManager implements IAxiosQueueManager {
 
   private requestQueue: RequestQueueItem[];
 
-  constructor({ chunkSize }: AxiosQueueManagerProps) {
-    this.chunkSize = chunkSize;
+  constructor({ chunkSize }: AxiosQueueManagerProps = {}) {
+    this.chunkSize = chunkSize || 10;
     this.requestQueue = [];
     this.tasksQueue = [];
   }
