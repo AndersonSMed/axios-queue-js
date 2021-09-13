@@ -1,24 +1,24 @@
-# AxiosQueue.js
+# AxiosQueueManager
 
 ## Description
 
-AxiosQueue.js is a wrapper of axios which enables you to enqueue axios requests and run them in a pipeline.
+AxiosQueueManager is a wrapper of axios which enables you to enqueue axios requests and run them in a pipeline.
 
 ## Instalation
 
-`npm install axios-queue-js` for npm users and `yarn add axios-queue-js` for yarn users.
+`npm install axios-queue-manager` for npm users and `yarn add axios-queue-manager` for yarn users.
 
 ## Usage
 
 ```typescript
-import axios from 'axios-queue-js';
+import axios from 'axios-queue-manager';
 
 axios.get('https://endpoint.test.net').then((response) => {
-  console.log('Hey look, I am getting a response using AxiosQueue.js :D');
+  console.log('Hey look, I am getting a response using AxiosQueueManager :D');
 });
 
 axios.post('https://endpoint.test.net', {}).then((response) => {
-  console.log('Hey look, I am posting something and getting a response using AxiosQueue.js :D');
+  console.log('Hey look, I am posting something and getting a response using AxiosQueueManager :D');
 });
 ```
 
@@ -27,12 +27,12 @@ axios.post('https://endpoint.test.net', {}).then((response) => {
 If you want to customize the queue length, you can create your own AxiosQueueManager and use it as a client, just like below.
 
 ```typescript
-import { AxiosQueueManager } from 'axios-queue-js';
+import { AxiosQueueManager } from 'axios-queue-manager';
 
 const client = new AxiosQueueManager({ queueSize: 10 });
 
 client.get('https://endpoint.test.net').then((response) => {
-  console.log('Hey look, I am getting a response using AxiosQueue.js :D');
+  console.log('Hey look, I am getting a response using AxiosQueueManager :D');
 });
 ```
 

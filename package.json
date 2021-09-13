@@ -1,5 +1,5 @@
 {
-  "name": "axios-queue-js",
+  "name": "axios-queue-manager",
   "version": "1.0.0-alpha.2",
   "description": "A superset of axios that can be used to automatically enqueue requests",
   "main": "dist/index.js",
