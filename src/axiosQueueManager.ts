@@ -60,7 +60,9 @@ class AxiosQueueManager implements IAxiosQueueManager {
   }
 
   private createTask({ url, data, config, method, onResolve, onReject }: IRequestData) {
-    this.tasksQueue.push(QueueTask.create({ url, data, config, method, onResolve, onReject }));
+    this.tasksQueue.push(
+      QueueTask.buildInstance({ url, data, config, method, onResolve, onReject })
+    );
     this.checkQueue();
   }
 

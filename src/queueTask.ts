@@ -1,10 +1,12 @@
 import { AxiosInstance } from 'axios';
 import { v4 as uuid } from 'uuid';
-import { IRequestData } from './interfaces';
+import { IHttpMethod, IRequestData } from './interfaces';
 
 interface KeyedRequestData extends IRequestData {
   id: string;
 }
+
+export class InvalidAxiosMethodError extends Error {}
 
 export default class QueueTask {
   private requestData: KeyedRequestData;
@@ -13,53 +15,37 @@ export default class QueueTask {
     this.requestData = { id: uuid(), url, method, data, config, onResolve, onReject };
   }
 
-  public makeRequest(client: AxiosInstance, onFinally: () => void): void {
+  private doRequestAndGetPromise(client: AxiosInstance) {
     switch (this.requestData.method) {
       case 'get':
-        client
-          .get(this.requestData.url, this.requestData.config)
-          .then(this.requestData.onResolve)
-          .catch(this.requestData.onReject)
-          .finally(() => onFinally());
-        return;
+        return client.get(this.requestData.url, this.requestData.config);
       case 'delete':
-        client
-          .delete(this.requestData.url, this.requestData.config)
-          .then(this.requestData.onResolve)
-          .catch(this.requestData.onReject)
-          .finally(() => onFinally());
-        return;
+        return client.delete(this.requestData.url, this.requestData.config);
       case 'post':
-        client
-          .post(this.requestData.url, this.requestData.data, this.requestData.config)
-          .then(this.requestData.onResolve)
-          .catch(this.requestData.onReject)
-          .finally(() => onFinally());
-        return;
+        return client.post(this.requestData.url, this.requestData.data, this.requestData.config);
       case 'patch':
-        client
-          .patch(this.requestData.url, this.requestData.data, this.requestData.config)
-          .then(this.requestData.onResolve)
-          .catch(this.requestData.onReject)
-          .finally(() => onFinally());
-        return;
+        return client.patch(this.requestData.url, this.requestData.data, this.requestData.config);
       case 'put':
-        client
-          .put(this.requestData.url, this.requestData.data, this.requestData.config)
-          .then(this.requestData.onResolve)
-          .catch(this.requestData.onReject)
-          .finally(() => onFinally());
-        return;
+        return client.put(this.requestData.url, this.requestData.data, this.requestData.config);
       default:
-        throw new Error(`Invalid method found for this request: ${this.requestData.method}`);
+        throw new InvalidAxiosMethodError(
+          `Invalid method found for this request: ${this.requestData.method}`
+        );
     }
+  }
+
+  public makeRequest(client: AxiosInstance, onFinally: () => void): void {
+    this.doRequestAndGetPromise(client)
+      .then(this.requestData.onResolve)
+      .catch(this.requestData.onReject)
+      .finally(() => onFinally());
   }
 
   public get data(): KeyedRequestData {
     return this.requestData;
   }
 
-  public static create({
+  public static buildInstance({
     url,
     method,
     data,

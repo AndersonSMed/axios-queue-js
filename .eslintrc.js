@@ -29,6 +29,7 @@ module.exports = {
     'import/export': 0,
     'import/extensions': 0,
     'import/prefer-default-export': 0,
+    'max-classes-per-file': 0,
     camelcase: [2, { properties: 'always' }],
   },
 };
