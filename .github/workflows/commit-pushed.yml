@@ -1,9 +1,6 @@
 name: On commit pushed
 
-on:
-  push:
-    branches:
-      - '*'
+on: push
 
 jobs:
   build:
