@@ -14,40 +14,57 @@ jest.mock('axios', () => ({
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-it.each(['get', 'delete', 'post', 'put', 'patch'])(
-  'Should handle all calls for method %s',
-  async (methodName) => {
-    const axiosQueueManager = new AxiosQueueManager({ queueSize: 2 });
-    const handler = jest.fn();
+it('Should handle all enqueued calls', async () => {
+  const axiosQueueManager = new AxiosQueueManager({ queueSize: 2 });
+  const handler = jest.fn();
 
-    mockedAxios[methodName].mockImplementation(() => {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          handler();
-          resolve('Testing request queue');
-        }, 100);
-      });
-    });
-
-    axiosQueueManager[methodName]('https://test.com');
-    axiosQueueManager[methodName]('https://test.com');
-    axiosQueueManager[methodName]('https://test.com');
-
-    await new Promise((resolve) => {
+  mockedAxios.get.mockImplementation(() => {
+    return new Promise((resolve) => {
       setTimeout(() => {
-        expect(handler).toBeCalledTimes(2);
-        resolve('Handler should be called two times');
-      }, 200);
+        handler();
+        resolve('Testing request queue');
+      }, 3);
     });
+  });
 
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        expect(handler).toBeCalledTimes(3);
-        resolve('Handler should be called three times');
-      }, 100);
-    });
-  }
-);
+  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('https://test.com');
+
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      expect(handler).toBeCalledTimes(2);
+      resolve('');
+    }, 3);
+  });
+
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      expect(handler).toBeCalledTimes(4);
+      resolve('');
+    }, 3);
+  });
+
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      expect(handler).toBeCalledTimes(6);
+      resolve('');
+    }, 3);
+  });
+
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      expect(handler).toBeCalledTimes(8);
+      resolve('');
+    }, 3);
+  });
+});
 
 it('Should resolve promise successfully', async () => {
   const axiosQueueManager = new AxiosQueueManager({ queueSize: 2 });
@@ -56,7 +73,7 @@ it('Should resolve promise successfully', async () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve('Testing resolve handler');
-      }, 100);
+      }, 0);
     });
   });
 
@@ -73,7 +90,7 @@ it('Should reject promise successfully', async () => {
       setTimeout(() => {
         // eslint-disable-next-line prefer-promise-reject-errors
         reject('Testing reject handling');
-      }, 100);
+      }, 0);
     });
   });
 

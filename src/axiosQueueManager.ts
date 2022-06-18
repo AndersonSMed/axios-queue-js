@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import { v4 as uuid } from 'uuid';
 import { IAxiosConfig, IAxiosQueueManager, IRequestData } from './interfaces';
 import QueueTask from './queueTask';
 
