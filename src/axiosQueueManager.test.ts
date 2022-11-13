@@ -14,7 +14,16 @@ jest.mock('axios', () => ({
 
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
+async function waitFor(ms: number) {
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('');
+    }, ms);
+  });
+}
+
 it('Should handle all enqueued calls', async () => {
+  const timeoutMilliseconds = 4;
   const axiosQueueManager = new AxiosQueueManager({ queueSize: 2 });
   const handler = jest.fn();
 
@@ -23,47 +32,31 @@ it('Should handle all enqueued calls', async () => {
       setTimeout(() => {
         handler();
         resolve('Testing request queue');
-      }, 3);
+      }, timeoutMilliseconds);
     });
   });
 
-  axiosQueueManager.get('https://test.com');
-  axiosQueueManager.get('https://test.com');
-  axiosQueueManager.get('https://test.com');
-  axiosQueueManager.get('https://test.com');
-  axiosQueueManager.get('https://test.com');
-  axiosQueueManager.get('https://test.com');
-  axiosQueueManager.get('https://test.com');
-  axiosQueueManager.get('https://test.com');
-  axiosQueueManager.get('https://test.com');
+  axiosQueueManager.get('');
+  axiosQueueManager.get('');
+  axiosQueueManager.get('');
+  axiosQueueManager.get('');
+  axiosQueueManager.get('');
+  axiosQueueManager.get('');
+  axiosQueueManager.get('');
+  axiosQueueManager.get('');
+  axiosQueueManager.get('');
 
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      expect(handler).toBeCalledTimes(2);
-      resolve('');
-    }, 3);
-  });
+  await waitFor(timeoutMilliseconds);
+  expect(handler).toBeCalledTimes(2);
 
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      expect(handler).toBeCalledTimes(4);
-      resolve('');
-    }, 3);
-  });
+  await waitFor(timeoutMilliseconds);
+  expect(handler).toBeCalledTimes(4);
 
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      expect(handler).toBeCalledTimes(6);
-      resolve('');
-    }, 3);
-  });
+  await waitFor(timeoutMilliseconds);
+  expect(handler).toBeCalledTimes(6);
 
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      expect(handler).toBeCalledTimes(8);
-      resolve('');
-    }, 3);
-  });
+  await waitFor(timeoutMilliseconds);
+  expect(handler).toBeCalledTimes(8);
 });
 
 it('Should resolve promise successfully', async () => {

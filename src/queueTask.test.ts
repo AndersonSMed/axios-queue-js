@@ -30,12 +30,12 @@ it('Should create QueueTask instance using buildInstanceer', () => {
 });
 
 it.each(['get', 'delete'])('Should make request for method %s', async (method) => {
-  axios[method] = jest.fn().mockResolvedValue({});
+  const axiosMethod = method as 'get' | 'delete';
+  axios[axiosMethod] = jest.fn().mockResolvedValue({});
 
   const task = new QueueTask({
     url: 'https://test.com',
-    // @ts-ignore
-    method,
+    method: axiosMethod,
     config: { headers: {} },
     onResolve: jest.fn(),
     onReject: jest.fn(),
@@ -43,16 +43,16 @@ it.each(['get', 'delete'])('Should make request for method %s', async (method) =
 
   task.makeRequest(axios, jest.fn());
 
-  expect(axios[method]).toHaveBeenCalledWith('https://test.com', { headers: {} });
+  expect(axios[axiosMethod]).toHaveBeenCalledWith('https://test.com', { headers: {} });
 });
 
 it.each(['post', 'put'])('Should make request for method %s with data', async (method) => {
-  axios[method] = jest.fn().mockResolvedValue({});
+  const axiosMethod = method as 'post' | 'put';
+  axios[axiosMethod] = jest.fn().mockResolvedValue({});
 
   const task = new QueueTask({
     url: 'https://test.com',
-    // @ts-ignore
-    method,
+    method: axiosMethod,
     data: { key: 'value' },
     config: { headers: {} },
     onResolve: jest.fn(),
@@ -61,7 +61,11 @@ it.each(['post', 'put'])('Should make request for method %s with data', async (m
 
   task.makeRequest(axios, jest.fn());
 
-  expect(axios[method]).toHaveBeenCalledWith('https://test.com', { key: 'value' }, { headers: {} });
+  expect(axios[axiosMethod]).toHaveBeenCalledWith(
+    'https://test.com',
+    { key: 'value' },
+    { headers: {} }
+  );
 });
 
 it('Should throw an exception when calling makeRequest with invalid method', () => {

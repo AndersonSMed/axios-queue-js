@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { v4 as uuid } from 'uuid';
-import { IHttpMethod, IRequestData } from './interfaces';
+import { IRequestData } from './interfaces';
 
 interface KeyedRequestData extends IRequestData {
   id: string;
