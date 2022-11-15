@@ -8,6 +8,7 @@
   "author": "Anderson Santos de Medeiros",
   "license": "MIT",
   "private": false,
+  "keywords": ["axios", "queue", "pipeline"],
   "files": [
     "/dist"
   ],
