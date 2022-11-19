@@ -1,6 +1,6 @@
 {
   "name": "axios-queue-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A superset of axios that can be used to automatically enqueue requests",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,11 @@
   "author": "Anderson Santos de Medeiros",
   "license": "MIT",
   "private": false,
-  "keywords": ["axios", "queue", "pipeline"],
+  "keywords": [
+    "axios",
+    "queue",
+    "pipeline"
+  ],
   "files": [
     "/dist"
   ],
