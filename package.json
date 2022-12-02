@@ -1,6 +1,6 @@
 {
   "name": "axios-queue-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A superset of axios that can be used to automatically enqueue requests",
   "main": "index.js",
   "types": "index.d.ts",
