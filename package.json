@@ -2,8 +2,8 @@
   "name": "axios-queue-js",
   "version": "1.0.2",
   "description": "A superset of axios that can be used to automatically enqueue requests",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "repository": "git@github.com:AndersonSMed/axios-queue-js.git",
   "author": "Anderson Santos de Medeiros",
   "license": "MIT",
@@ -44,8 +44,10 @@
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0"
   },
+  "peerDependencies": {
+    "axios": ">=0.21.4"
+  },
   "dependencies": {
-    "axios": "^0.21.4",
     "uuid": "^8.3.2"
   }
 }

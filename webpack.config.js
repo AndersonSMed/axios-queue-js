@@ -17,10 +17,13 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   output: {
-    filename: 'axiosQueueManager.min.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
     globalObject: 'this',
-    library: 'AxiosQueueManager',
-    libraryTarget: 'umd',
+    library: {
+      name: 'AxiosQueueJS',
+      type: 'umd',
+    },
   },
+  externals: 'axios',
 };
