@@ -5,7 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:AndersonSMed/axios-queue-js.git",
-  "author": "Anderson Santos de Medeiros",
+  "author": {
+    "name" : "Anderson Medeiros",
+    "email" : "anderson.santos.medeiros@hotmail.com",
+    "url" : "https://github.com/AndersonSMed"
+  },
   "license": "MIT",
   "private": false,
   "keywords": [
