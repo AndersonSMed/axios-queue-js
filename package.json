@@ -1,14 +1,14 @@
 {
   "name": "axios-queue-js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A superset of axios that can be used to automatically enqueue requests",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:AndersonSMed/axios-queue-js.git",
   "author": {
-    "name" : "Anderson Medeiros",
-    "email" : "anderson.santos.medeiros@hotmail.com",
-    "url" : "https://github.com/AndersonSMed"
+    "name": "Anderson Medeiros",
+    "email": "anderson.santos.medeiros@hotmail.com",
+    "url": "https://github.com/AndersonSMed"
   },
   "license": "MIT",
   "private": false,
