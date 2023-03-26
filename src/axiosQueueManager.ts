@@ -66,32 +66,32 @@ class AxiosQueueManager implements IAxiosQueueManager {
     this.checkQueue();
   }
 
-  get(url: string, config?: IAxiosConfig): Promise<AxiosResponse<any>> {
-    return new Promise<AxiosResponse<any>>((resolve, reject) => {
+  get<T = any, R = AxiosResponse<T>>(url: string, config?: IAxiosConfig): Promise<R> {
+    return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'get', url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  delete(url: string, config?: IAxiosConfig): Promise<AxiosResponse<any>> {
-    return new Promise<AxiosResponse<any>>((resolve, reject) => {
+  delete<T = any, R = AxiosResponse<T>>(url: string, config?: IAxiosConfig): Promise<R> {
+    return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'delete', url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  post(url: string, data?: any, config?: IAxiosConfig): Promise<AxiosResponse<any>> {
-    return new Promise<AxiosResponse<any>>((resolve, reject) => {
+  post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+    return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'post', data, url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  patch(url: string, data?: any, config?: IAxiosConfig): Promise<AxiosResponse<any>> {
-    return new Promise<AxiosResponse<any>>((resolve, reject) => {
+  patch<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+    return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'patch', data, url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  put(url: string, data?: any, config?: IAxiosConfig): Promise<AxiosResponse<any>> {
-    return new Promise<AxiosResponse<any>>((resolve, reject) => {
+  put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+    return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'put', data, url, config, onResolve: resolve, onReject: reject });
     });
   }
