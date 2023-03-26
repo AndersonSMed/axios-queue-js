@@ -5,7 +5,7 @@ export type IAxiosConfig = AxiosRequestConfig | undefined;
 export type IHttpMethod = 'get' | 'post' | 'patch' | 'put' | 'delete';
 
 export interface IRequestData {
-  onResolve: (value: AxiosResponse<any> | PromiseLike<AxiosResponse<any>>) => void;
+  onResolve: (value: any | PromiseLike<any>) => void;
   onReject: (reason?: any) => void;
   url: string;
   method: IHttpMethod;
