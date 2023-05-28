@@ -22,14 +22,14 @@ class AxiosQueueManager implements IAxiosQueueManager {
     this.currentQueueSize = 0;
     this.enqueuedTasks = [];
 
-    this.makeRequests = this.makeRequests.bind(this)
-    this.checkAndRunTasks = this.checkAndRunTasks.bind(this)
-    this.createTask = this.createTask.bind(this)
-    this.get = this.get.bind(this)
-    this.delete = this.delete.bind(this)
-    this.post = this.post.bind(this)
-    this.patch = this.patch.bind(this)
-    this.put = this.put.bind(this)
+    this.makeRequests = this.makeRequests.bind(this);
+    this.checkAndRunTasks = this.checkAndRunTasks.bind(this);
+    this.createTask = this.createTask.bind(this);
+    this.get = this.get.bind(this);
+    this.delete = this.delete.bind(this);
+    this.post = this.post.bind(this);
+    this.patch = this.patch.bind(this);
+    this.put = this.put.bind(this);
   }
 
   private makeRequests(tasks: QueueTask[]) {
@@ -66,19 +66,31 @@ class AxiosQueueManager implements IAxiosQueueManager {
     });
   }
 
-  public post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+  public post<T = any, R = AxiosResponse<T>>(
+    url: string,
+    data?: any,
+    config?: IAxiosConfig
+  ): Promise<R> {
     return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'post', data, url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  public patch<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+  public patch<T = any, R = AxiosResponse<T>>(
+    url: string,
+    data?: any,
+    config?: IAxiosConfig
+  ): Promise<R> {
     return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'patch', data, url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  public put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+  public put<T = any, R = AxiosResponse<T>>(
+    url: string,
+    data?: any,
+    config?: IAxiosConfig
+  ): Promise<R> {
     return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'put', data, url, config, onResolve: resolve, onReject: reject });
     });
