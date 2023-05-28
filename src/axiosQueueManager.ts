@@ -21,6 +21,15 @@ class AxiosQueueManager implements IAxiosQueueManager {
     this.maxQueueSize = queueSize || 10;
     this.currentQueueSize = 0;
     this.enqueuedTasks = [];
+
+    this.makeRequests = this.makeRequests.bind(this)
+    this.checkAndRunTasks = this.checkAndRunTasks.bind(this)
+    this.createTask = this.createTask.bind(this)
+    this.get = this.get.bind(this)
+    this.delete = this.delete.bind(this)
+    this.post = this.post.bind(this)
+    this.patch = this.patch.bind(this)
+    this.put = this.put.bind(this)
   }
 
   private makeRequests(tasks: QueueTask[]) {
@@ -45,31 +54,31 @@ class AxiosQueueManager implements IAxiosQueueManager {
     this.checkAndRunTasks();
   }
 
-  get<T = any, R = AxiosResponse<T>>(url: string, config?: IAxiosConfig): Promise<R> {
+  public get<T = any, R = AxiosResponse<T>>(url: string, config?: IAxiosConfig): Promise<R> {
     return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'get', url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  delete<T = any, R = AxiosResponse<T>>(url: string, config?: IAxiosConfig): Promise<R> {
+  public delete<T = any, R = AxiosResponse<T>>(url: string, config?: IAxiosConfig): Promise<R> {
     return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'delete', url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+  public post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
     return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'post', data, url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  patch<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+  public patch<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
     return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'patch', data, url, config, onResolve: resolve, onReject: reject });
     });
   }
 
-  put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
+  public put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: IAxiosConfig): Promise<R> {
     return new Promise<R>((resolve, reject) => {
       this.createTask({ method: 'put', data, url, config, onResolve: resolve, onReject: reject });
     });

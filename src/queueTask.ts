@@ -8,6 +8,9 @@ export default class QueueTask {
 
   constructor({ url, method, data, config, onResolve, onReject }: IRequestData) {
     this.requestData = { url, method, data, config, onResolve, onReject };
+
+    this.doRequestAndGetPromise = this.doRequestAndGetPromise.bind(this)
+    this.makeRequest = this.makeRequest.bind(this)
   }
 
   private doRequestAndGetPromise(client: AxiosInstance) {
