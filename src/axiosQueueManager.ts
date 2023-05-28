@@ -7,63 +7,42 @@ export interface IAxiosQueueManagerProps {
   queueSize?: number;
 }
 
-interface IQueuedRequest {
-  task: QueueTask;
-  wasRequested: boolean;
-}
-
 class AxiosQueueManager implements IAxiosQueueManager {
   private client: AxiosInstance;
 
-  private queueSize: number;
+  private maxQueueSize: number;
 
-  private tasksQueue: QueueTask[];
+  private currentQueueSize: number;
 
-  private requestsQueue: IQueuedRequest[];
+  private enqueuedTasks: QueueTask[];
 
   constructor({ queueSize, client }: IAxiosQueueManagerProps = {}) {
     this.client = client || axios;
-    this.queueSize = queueSize || 10;
-    this.requestsQueue = [];
-    this.tasksQueue = [];
+    this.maxQueueSize = queueSize || 10;
+    this.currentQueueSize = 0;
+    this.enqueuedTasks = [];
   }
 
-  private makeRequests() {
-    this.requestsQueue = this.requestsQueue.map((request) => {
-      if (!request.wasRequested) {
-        request.task.makeRequest(this.client, () => {
-          this.requestsQueue = this.requestsQueue.filter(
-            (previousRequests) => previousRequests.task.data.id !== request.task.data.id
-          );
-          this.checkQueue();
-        });
-      }
-
-      return { ...request, wasRequested: true };
+  private makeRequests(tasks: QueueTask[]) {
+    this.currentQueueSize += tasks.length;
+    tasks.forEach((task) => {
+      task.makeRequest(this.client, () => {
+        this.currentQueueSize -= 1;
+        this.checkAndRunTasks();
+      });
     });
   }
 
-  private enqueueTasksToRequest(tasks: QueueTask[]) {
-    this.requestsQueue = this.requestsQueue.concat(
-      tasks.map((task) => ({ task, wasRequested: false }))
-    );
-  }
-
-  private checkQueue() {
-    const emptyTaskSlots = this.queueSize - this.requestsQueue.length;
-    if (emptyTaskSlots > 0 && this.tasksQueue.length > 0) {
-      const tasks = this.tasksQueue.slice(0, emptyTaskSlots);
-      this.enqueueTasksToRequest(tasks);
-      this.tasksQueue = this.tasksQueue.slice(tasks.length);
-      this.makeRequests();
+  private checkAndRunTasks() {
+    const emptyTaskSlots = this.maxQueueSize - this.currentQueueSize;
+    if (emptyTaskSlots > 0 && this.enqueuedTasks.length > 0) {
+      this.makeRequests(this.enqueuedTasks.splice(0, emptyTaskSlots));
     }
   }
 
   private createTask({ url, data, config, method, onResolve, onReject }: IRequestData) {
-    this.tasksQueue.push(
-      QueueTask.buildInstance({ url, data, config, method, onResolve, onReject })
-    );
-    this.checkQueue();
+    this.enqueuedTasks.push(QueueTask.create({ url, data, config, method, onResolve, onReject }));
+    this.checkAndRunTasks();
   }
 
   get<T = any, R = AxiosResponse<T>>(url: string, config?: IAxiosConfig): Promise<R> {

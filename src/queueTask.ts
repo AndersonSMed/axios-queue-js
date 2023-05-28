@@ -1,18 +1,13 @@
 import { AxiosInstance } from 'axios';
-import { v4 as uuid } from 'uuid';
 import { IRequestData } from './interfaces';
-
-interface KeyedRequestData extends IRequestData {
-  id: string;
-}
 
 export class InvalidAxiosMethodError extends Error {}
 
 export default class QueueTask {
-  private requestData: KeyedRequestData;
+  private requestData: IRequestData;
 
   constructor({ url, method, data, config, onResolve, onReject }: IRequestData) {
-    this.requestData = { id: uuid(), url, method, data, config, onResolve, onReject };
+    this.requestData = { url, method, data, config, onResolve, onReject };
   }
 
   private doRequestAndGetPromise(client: AxiosInstance) {
@@ -41,11 +36,11 @@ export default class QueueTask {
       .finally(() => onFinally());
   }
 
-  public get data(): KeyedRequestData {
+  public get data(): IRequestData {
     return this.requestData;
   }
 
-  public static buildInstance({
+  public static create({
     url,
     method,
     data,

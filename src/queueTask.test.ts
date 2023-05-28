@@ -4,11 +4,11 @@ import QueueTask, { InvalidAxiosMethodError } from './queueTask';
 
 jest.mock('axios');
 
-it('Should create QueueTask instance using buildInstanceer', () => {
+it('Should create QueueTask instance using create', () => {
   const onResolve = jest.fn();
   const onReject = jest.fn();
 
-  const task = QueueTask.buildInstance({
+  const task = QueueTask.create({
     url: 'https://test.com',
     data: { key: 'value' },
     config: { headers: {} },
@@ -19,7 +19,6 @@ it('Should create QueueTask instance using buildInstanceer', () => {
 
   expect(task).toBeInstanceOf(QueueTask);
   expect(task.data).toEqual({
-    id: expect.any(String),
     url: 'https://test.com',
     method: 'get',
     data: { key: 'value' },
