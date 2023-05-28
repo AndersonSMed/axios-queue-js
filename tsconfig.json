@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "target": "es6",
-    "module": "es2015",
+    "lib": ["es2018"],
+    "target": "es2018",
+    "module": "CommonJS",
     "declaration": true,
     "outDir": "./dist",
     "esModuleInterop": true,
