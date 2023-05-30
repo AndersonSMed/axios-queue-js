@@ -1,6 +1,6 @@
-## Why to use axios-queue-js?
+## Why use axios-queue-js?
 
-The `axios-queue-js` is a lightweight wrapper of `axios` that enables you to make requests using a queue. In simple words, it improves significantly the performance of your requests, once no request is made unless there's an open slot for it. This lib works for both web and node environments and can be easily placed in codebases that already use `axios` to handle requests, even if they are using a custom client.
+`axios-queue-js` is a lightweight wrapper of `axios` that enables you to make requests using a queue. In simple words, it improves significantly the performance of your requests, once no request is made unless there's an open slot for it. This lib works for both web and node environments and can be easily placed in codebases that already use `axios` to handle requests, even if they are using a custom client.
 
 ## Performance of axios with axios-queue-js
 
