@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import axios from 'axios';
-import QueueTask, { InvalidAxiosMethodError } from './queueTask';
+import QueueTask, { InvalidAxiosMethodError } from '../queueTask';
 
 jest.mock('axios');
 

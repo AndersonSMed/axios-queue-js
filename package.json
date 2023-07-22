@@ -1,10 +1,17 @@
 {
   "name": "axios-queue-js",
   "version": "1.1.5",
-  "description": "A superset of axios that can be used to automatically enqueue requests",
+  "description": "axios-queue-js is a lightweight wrapper of axios that enables you to make requests using a queue",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "git@github.com:AndersonSMed/axios-queue-js.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:AndersonSMed/axios-queue-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AndersonSMed/axios-queue-js/issues"
+  },
+  "homepage": "https://github.com/AndersonSMed/axios-queue-js#readme",
   "author": {
     "name": "Anderson Medeiros",
     "email": "anderson.santos.medeiros@hotmail.com",
@@ -13,9 +20,7 @@
   "license": "MIT",
   "private": false,
   "keywords": [
-    "axios",
-    "queue",
-    "pipeline"
+    "nodejs", "typescript", "queue", "pipeline", "requests", "axios"
   ],
   "files": [
     "/dist"

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import AxiosQueueManager from './axiosQueueManager';
+import AxiosQueueManager from '../axiosQueueManager';
 
 jest.mock('axios', () => ({
   get: jest.fn(),
