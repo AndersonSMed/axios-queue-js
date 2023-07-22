@@ -1,6 +1,6 @@
 {
   "name": "axios-queue-js",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "axios-queue-js is a lightweight wrapper of axios that enables you to make requests using a queue",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,12 @@
   "license": "MIT",
   "private": false,
   "keywords": [
-    "nodejs", "typescript", "queue", "pipeline", "requests", "axios"
+    "nodejs",
+    "typescript",
+    "queue",
+    "pipeline",
+    "requests",
+    "axios"
   ],
   "files": [
     "/dist"
