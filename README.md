@@ -26,7 +26,9 @@ As you can see below, `axios-queue-js` was able to make `axios` handle about **4
 
 ## Usage
 
-You can install `axios-queue-js` by running a `npm install axios-queue-js` or `yarn add axios-queue-js` in your project. After that you can use it as follows.
+You can add `axios-queue-js` in your project by running a `npm install --save axios axios-queue-js` or `yarn add axios axios-queue-js` in your project.
+
+After that, you can use `axios-queue-js` as shown in the following examples.
 
 ```typescript
 // By using module imports
